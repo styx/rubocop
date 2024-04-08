@@ -7,7 +7,7 @@ module RuboCop
   class Lockfile
     # @param [String, Pathname, nil] lockfile_path
     def initialize(lockfile_path = nil)
-      lockfile_path ||= defined?(Bundler) ? Bundler.default_lockfile : nil
+      lockfile_path ||= defined?(::Bundler) ? ::Bundler.default_lockfile : nil
 
       @lockfile_path = lockfile_path
     end
@@ -61,9 +61,9 @@ module RuboCop
       return @parser if defined?(@parser)
       return unless @lockfile_path
 
-      lockfile = Bundler.read_file(@lockfile_path)
-      @parser = lockfile ? Bundler::LockfileParser.new(lockfile) : nil
-    rescue Bundler::BundlerError
+      lockfile = ::Bundler.read_file(@lockfile_path)
+      @parser = lockfile ? ::Bundler::LockfileParser.new(lockfile) : nil
+    rescue ::Bundler::BundlerError
       nil
     end
   end
